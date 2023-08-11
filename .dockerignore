@@ -1,0 +1,16 @@
+# Ignore virtual environment directory
+venv/
+
+# Ignore local development and temporary files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.db
+*.sqlite
+*.log
+*.swp
+*.swo
+
+# Ignore version control directories
+.git/

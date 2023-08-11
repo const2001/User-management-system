@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
+</head>
+<body>
+    <div class="wrapper">
+        <form class="form-signin" method="post" action="{{ url_for('login') }}">       
+          <h2 class="form-signin-heading">Please login</h2>
+          <input type="text" class="form-control" name="username" placeholder="Username" required="" autofocus="" id="username" />
+          <input type="password" class="form-control" name="password" placeholder="Password" id="password" required="" />      
+          
+          <button class="btn btn-lg btn-primary btn-block" type="submit">Login</button>  
+          {% if error_message %}
+            <p class="error-message">{{ error_message }}</p>
+            {% endif %} 
+            <br>
+            <a class="register" href="{{ url_for('register') }}">Click here to register</a> 
+        </form>
+    </div>
+</body>
+</html>
