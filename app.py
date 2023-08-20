@@ -75,7 +75,8 @@ def index():
         user = db.session.get(User, user_id)
         if user and check_role(user, "Admin"):
             return render_template("admin.html", username=user.username)
-
+        
+    return render_template("login.html")
 
 
 

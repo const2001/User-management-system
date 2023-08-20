@@ -10,7 +10,7 @@
 <body>
     <div class="wrapper">
         <form class="form-signin" method="post" action="{{ url_for('login') }}">       
-          <h2 class="form-signin-heading">Please login</h2>
+          <h2 class="form-signin-heading">Admin page</h2>
           <input type="text" class="form-control" name="username" placeholder="Username" required="" autofocus="" id="username" />
           <input type="password" class="form-control" name="password" placeholder="Password" id="password" required="" />      
           
@@ -19,7 +19,7 @@
             <p class="error-message">{{ error_message }}</p>
             {% endif %} 
             <br>
-            <a class="register" href="{{ url_for('register') }}">Click here to register</a> 
+         
         </form>
     </div>
 </body>

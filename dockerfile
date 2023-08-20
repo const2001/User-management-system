@@ -11,7 +11,7 @@ ADD . /app
 RUN pip install --upgrade pip && pip install -r requirements.txt
 
 # Unblock port 8000 for the Flask app to run on
-EXPOSE 8000
+EXPOSE 8001
 
 # Execute the Flask app and the Kafka producer and consumer
 CMD ["python", "app.py"]
