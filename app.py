@@ -103,42 +103,45 @@ def logout():
     session.pop("user_id", None)
     return redirect("/")
     
-
-
-
-@app.route("/update_issue/<int:issue_id>", methods=["PUT"])
-def update_issue(issue_id):
-    user_id = session.get("user_id")
-
-    if user_id:
-        user = db.session.get(User, user_id)
-        
-        if user and check_role(user, "Admin"):
+@app.route("/delete/<int:user_id>", methods=["DELETE"])
+def delete_user(user_id):
+    current_user_id = session.get("user_id")
     
-            print(request.data)
-            data = request.json
-            print(data)
-            new_status = data["status"]
-
-            if new_status is None:
-                return jsonify({"error": "New status not provided"}), 400
-
+    if current_user_id:
+        current_user = db.session.query(User).get(current_user_id)
+        
+        if current_user and check_role(current_user, "Admin"):
             try:
-                issue = db.session.query(Issue).get(issue_id)
-                if issue is None:
-                    return jsonify({"error": "Issue not found"}), 404
-
-                issue.status = new_status
+                user = db.session.query(User).get(user_id)
+                if user is None:
+                    return jsonify({"error": "User to delete not found"}), 404
+                
+                issues = db.session.query(Issue).filter_by(user_id=user_id).all()
+                for issue in issues:
+                    db.session.delete(issue)
+                
+                db.session.delete(user)
                 db.session.commit()
-
-                return jsonify({"message": "Issue status updated successfully"})
-
+                
+                return jsonify({"message": "User and associated issues deleted successfully"})
+                
             except Exception as e:
-             db.session.rollback()
-             return jsonify({"error": str(e)}), 500
-        return("you dont have permission to change status")  
-    return render_template("login.html")  
+                db.session.rollback()
+                return jsonify({"error": str(e)}), 500
+            
+        return "You don't have permission to delete the user"
+    
+    return render_template("login.html")
+
+        
+
+
+        
+    
+
+
+
 
 
 if __name__ == "__main__":
-    app.run(debug=True, host="0.0.0.0", port=8000)
+    app.run(debug=True, host="0.0.0.0", port=8001)
