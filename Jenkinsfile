@@ -9,7 +9,7 @@ pipeline {
                 deleteDir()
 
                 // Clone the GitHub repository
-                       git branch: 'main', url: 'https://github.com/const2001/Issue_Tracker.git'
+                       git branch: 'main', url: 'https://github.com/const2001/User-management-system.git'
 
                      
             }
@@ -21,7 +21,7 @@ pipeline {
             steps {
                 sh '''
                     cd ~/workspace/ansible-pipeline/
-                    ansible-playbook ansible_playbook_flask_db_setup.yml
+                    ansible-playbook ansible_playbook_flask_admin_setup.yml
 
                 '''  
              
