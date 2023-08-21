@@ -52,7 +52,7 @@ class Issue(db.Model):
     user = db.relationship('User', backref=db.backref('issues', lazy='dynamic'))
     
 
-    def __init__(self, name, phone, issue_description, status,user_id):
+    def __init__(self, name, phone, issue_description, status,role,user_id):
         self.name = name
         self.phone = phone
         self.issue_description = issue_description
@@ -74,7 +74,9 @@ def index():
     if user_id:
         user = db.session.get(User, user_id)
         if user and check_role(user, "Admin"):
-            return render_template("admin.html", username=user.username)
+            users = get_users()
+            print(users)
+            return render_template("admin.html", username=user.username, users = users)
         
     return render_template("login.html")
 
@@ -103,8 +105,46 @@ def login():
 def logout():
     session.pop("user_id", None)
     return redirect("/")
+
+@app.route("/edit/<int:user_id>", methods=["GET", "POST"])
+def edit_user(user_id):
+    current_user_id = session.get("user_id")
     
-@app.route("/delete/<int:user_id>", methods=["DELETE"])
+    if current_user_id:
+        current_user = db.session.query(User).get(current_user_id)
+        
+        if current_user and check_role(current_user, "Admin"):
+            try:
+                user = db.session.query(User).get(user_id)
+                if user is None:
+                    return jsonify({"error": "User to edit not found"}), 404
+                
+                if request.method == "POST":
+                    new_username = request.form.get("username")
+                    new_email = request.form.get("email")
+                    
+                    if new_username:
+                        user.username = new_username
+                    if new_email:
+                        user.email = new_email
+                    
+                    db.session.commit()
+                    
+                    return jsonify({"message": "User details updated successfully"})
+                
+                
+                return render_template("edit_user.html", user=user)
+                
+            except Exception as e:
+                db.session.rollback()
+                return jsonify({"error": str(e)}), 500
+            
+        return "You don't have permission to edit the user"
+    
+    return render_template("login.html")
+
+
+@app.route("/delete/<int:user_id>", methods=["GET"])
 def delete_user(user_id):
     current_user_id = session.get("user_id")
     
@@ -137,9 +177,34 @@ def delete_user(user_id):
         
 
 
-        
+@app.route("/users", methods=["GET"])
+def get_users():
+    current_user_id = session.get("user_id")
     
+    if current_user_id:
+        current_user = db.session.query(User).get(current_user_id)
+        
+        if current_user and check_role(current_user, "Admin"):
+            try:
+                user_list = []
+                users = User.query.all()
+                for user in users:
+                 user_dict = {
+                    'id': user.id,
+                    'username': user.username,
+                    'email': user.email,
+                    'role': user.role.name
+                 }
+                 user_list.append(user_dict)
+                 return users
+            except Exception as e:
+                return jsonify({"error": str(e)}), 500
+            
+        return "You don't have permission to delete the user"
+    
+    return render_template("login.html")
 
+        
 
 
 

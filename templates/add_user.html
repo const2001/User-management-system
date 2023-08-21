@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bootstrap User Management Data Table</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/add_user.css') }}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card card-primary">
+            <div class="card-header">
+              <h3 class="card-title">Add User</h3>
+            </div>
+            <form role="form" action="/add_user_save" method="post"> {% csrf_token %} <div class="card-body">
+                <table>
+                  <div class="card-body">
+                    <tr>
+                      <td>
+                        <label>Username</label>
+                      </td>
+                      <td>
+                        <input type="text" placeholder="username" name="username" >
+                      </td>
+                      <td>
+                        <input type="hidden" name="id" placeholder="id" >
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <label>Is_superuser</label>
+                      </td>
+                      <td>
+                        <input type="text" name="is_superuser" placeholder="is_superuser" >
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <label>First name</label>
+                      </td>
+                      <td>
+                        <input type="text" placeholder="first_name" name="first_name" >
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <label>Last name</label>
+                      </td>
+                      <td>
+                        <input type="text" placeholder="last_name" name="last_name" >
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <label>Email</label>
+                      </td>
+                      <td>
+                        <input type="text" placeholder="email" name="email" >
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <label>Is_staff</label>
+                      </td>
+                      <td>
+                        <input type="text" placeholder="is_staff" name="is_staff" >
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <label>Is_active</label>
+                      </td>
+                      <td>
+                        <input type="text" placeholder="is_active" name="is_active" >
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <label>User type</label>
+                      </td>
+                      <td>
+                        <input type="text" placeholder="user_type" name="user_type" >
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <label>Password</label>
+                      </td>
+                      <td>
+                        <input type="text" placeholder="password" name="password" >
+                      </td>
+                    </tr>
+                </table>
+                <div class="form-group"> {% if messages %} {% for message in messages %} {% if message.tags == 'error' %} <div class="alert alert-danger" style="margin-top:10px">{{ message }}</div> {% endif %} {% if message.tags == 'success' %} <div class="alert alert-success" style="margin-top:10px">{{ message }}</div> {% endif %} {% endfor %} {% endif %} </div>
+              </div>
+              <div class="card-footer">
+                <button type="submit">Save user</button>
+                <button><a href="/admin_home">Go Back</a></button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+    </div>
+    </div>
