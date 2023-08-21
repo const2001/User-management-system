@@ -16,7 +16,6 @@ pipeline {
             
         }
 
-
         stage('Run Ansible Playbook') {
             steps {
                 sh '''
