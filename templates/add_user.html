@@ -20,42 +20,26 @@
             <div class="card-header">
               <h3 class="card-title">Add User</h3>
             </div>
-            <form role="form" action="/add_user_save" method="post"> {% csrf_token %} <div class="card-body">
+            <form role="form" action="/add_user" method="post">  <div class="card-body">
                 <table>
                   <div class="card-body">
+
+                    <div class="accounttype">
+                      <input type="radio" value="1" id="radioOne" name="role_id" checked/>
+                      <label for="radioOne" class="radio">User</label>
+                      <input type="radio" value="3" id="radioTwo" name="role_id" />
+                      <label for="radioTwo" class="radio">Supporter</label>
+                    </div>
+
                     <tr>
                       <td>
                         <label>Username</label>
                       </td>
                       <td>
-                        <input type="text" placeholder="username" name="username" >
+                        <input type="text" placeholder="username" id="username" name="username" >
                       </td>
                       <td>
                         <input type="hidden" name="id" placeholder="id" >
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <label>Is_superuser</label>
-                      </td>
-                      <td>
-                        <input type="text" name="is_superuser" placeholder="is_superuser" >
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <label>First name</label>
-                      </td>
-                      <td>
-                        <input type="text" placeholder="first_name" name="first_name" >
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <label>Last name</label>
-                      </td>
-                      <td>
-                        <input type="text" placeholder="last_name" name="last_name" >
                       </td>
                     </tr>
                     <tr>
@@ -66,30 +50,7 @@
                         <input type="text" placeholder="email" name="email" >
                       </td>
                     </tr>
-                    <tr>
-                      <td>
-                        <label>Is_staff</label>
-                      </td>
-                      <td>
-                        <input type="text" placeholder="is_staff" name="is_staff" >
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <label>Is_active</label>
-                      </td>
-                      <td>
-                        <input type="text" placeholder="is_active" name="is_active" >
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <label>User type</label>
-                      </td>
-                      <td>
-                        <input type="text" placeholder="user_type" name="user_type" >
-                      </td>
-                    </tr>
+                     
                     <tr>
                       <td>
                         <label>Password</label>
@@ -103,7 +64,7 @@
               </div>
               <div class="card-footer">
                 <button type="submit">Save user</button>
-                <button><a href="/admin_home">Go Back</a></button>
+                <button><a href="/">Go Back</a></button>
               </div>
             </form>
           </div>

@@ -36,7 +36,7 @@ class User(db.Model):
     role = db.relationship("Role", backref=db.backref("users", lazy="dynamic"))
 
     def __init__(self, username, email, password, role_id):
-        self.name = username
+        self.username = username
         self.email = email
         self.password = password
         self.role_id = role_id
@@ -105,6 +105,42 @@ def login():
 def logout():
     session.pop("user_id", None)
     return redirect("/")
+@app.route("/add_user", methods=["GET", "POST"])
+def add_user():
+    current_user_id = session.get("user_id")
+    
+    if current_user_id:
+        current_user = db.session.query(User).get(current_user_id)
+        
+        if current_user and check_role(current_user, "Admin"):
+            try:
+                if request.method == "POST":
+                    role_id = request.form["role_id"]
+                    new_username = request.form.get("username")
+                    new_email = request.form.get("email")
+                    new_password = request.form.get("password")
+                    
+                    if not new_username or not new_email or not new_password:
+                        return jsonify({"error": "Missing required fields"}), 400
+                    
+                    # You should perform proper password hashing before storing it
+                    new_user = User(username=new_username, email=new_email, password=new_password,role_id=role_id)
+                    db.session.add(new_user)
+                    db.session.commit()
+                    
+                    return jsonify({"message": "User added successfully"})
+                
+                # For GET request, return an HTML form to add a new user
+                return render_template("add_user.html")
+                
+            except Exception as e:
+                db.session.rollback()
+                return jsonify({"error": str(e)}), 500
+            
+        return "You don't have permission to add a user"
+    
+    return render_template("login.html")
+
 
 @app.route("/edit/<int:user_id>", methods=["GET", "POST"])
 def edit_user(user_id):
