@@ -128,7 +128,7 @@ def add_user():
                     db.session.add(new_user)
                     db.session.commit()
                     
-                    return jsonify({"message": "User added successfully"})
+                    return(redirect("/"))
                 
                 # For GET request, return an HTML form to add a new user
                 return render_template("add_user.html")
