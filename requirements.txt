@@ -3,3 +3,4 @@ flask_sqlalchemy
 psycopg2-binary
 Flask-Migrate
 Flask-session
+Flask-Mail
