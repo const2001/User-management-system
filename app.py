@@ -9,7 +9,7 @@ from flask import (
     json,
     url_for,
 )
-from flask_sqlalchemy import SQLAlemy
+from flask_sqlalchemy import SQLAlchemy
 import bcrypt
 from flask_mail import Mail, Message
 
