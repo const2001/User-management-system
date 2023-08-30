@@ -9,7 +9,9 @@ from flask import (
     json,
     url_for,
 )
-from flask_sqlalchemy import SQLAlchemy
+from flask_sqlalchemy import SQLAlemy
+import bcrypt
+from flask_mail import Mail, Message
 
 app = Flask(__name__)
 app.config[
@@ -90,7 +92,7 @@ def login():
         password = request.form["password"]
         user = User.query.filter_by(username=username).first()
 
-        if user and user.password == password:
+        if user and bcrypt.checkpw(password.encode('utf-8'), user.password.encode('utf-8')):
             session["user_id"] = user.id
             flash("Login successful.")
             return redirect("/")
@@ -154,7 +156,7 @@ def edit_user(user_id):
                 user = db.session.query(User).get(user_id)
                 if user is None:
                     return jsonify({"error": "User to edit not found"}), 404
-                
+            
                 if request.method == "POST":
                     new_username = request.form.get("username")
                     new_email = request.form.get("email")
