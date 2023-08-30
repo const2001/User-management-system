@@ -166,7 +166,7 @@ def edit_user(user_id):
                     
                     db.session.commit()
                     
-                    return jsonify({"message": "User details updated successfully"})
+                    return redirect("/")
                 
                 
                 return render_template("edit_user.html", user=user)
@@ -200,7 +200,7 @@ def delete_user(user_id):
                 db.session.delete(user)
                 db.session.commit()
                 
-                return jsonify({"message": "User and associated issues deleted successfully"})
+                return redirect("/")
                 
             except Exception as e:
                 db.session.rollback()
