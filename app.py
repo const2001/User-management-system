@@ -16,7 +16,7 @@ from flask_mail import Mail, Message
 app = Flask(__name__)
 app.config[
     "SQLALCHEMY_DATABASE_URI"
-] = "postgresql://postgres:mysecretpassword@20.0.161.2:5432/postgres"
+] = "postgresql://postgres:mysecretpassword@20.0.2.51:5432/postgres"
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 app.config["SECRET_KEY"] = "mykey"
 
