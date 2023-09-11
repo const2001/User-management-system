@@ -62,7 +62,6 @@ class Issue(db.Model):
         self.status = status
         self.user_id = user_id
 
-db.create_all()
 
 def check_role(user, role_name):
     return user.role.name == role_name
