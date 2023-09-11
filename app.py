@@ -21,7 +21,7 @@ app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 app.config["SECRET_KEY"] = "mykey"
 
 db = SQLAlchemy(app)
-db.create_all()
+
 
 # Models
 
@@ -62,6 +62,7 @@ class Issue(db.Model):
         self.status = status
         self.user_id = user_id
 
+db.create_all()
 
 def check_role(user, role_name):
     return user.role.name == role_name
