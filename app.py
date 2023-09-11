@@ -21,6 +21,7 @@ app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 app.config["SECRET_KEY"] = "mykey"
 
 db = SQLAlchemy(app)
+db.create_all()
 
 # Models
 
