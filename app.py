@@ -19,6 +19,7 @@ app.config[
 ] = "postgresql://postgres:mysecretpassword@20.0.2.51:5432/postgres"
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 app.config["SECRET_KEY"] = "mykey"
+app.config["SQLALCHEMY_ENGINE_OPTIONS"] = {"pool_pre_ping": True}
 
 db = SQLAlchemy(app)
 
